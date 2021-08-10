@@ -586,7 +586,8 @@ void S3PostCompleteAction::add_part_object_to_probable_dead_oid_list(
 
 void S3PostCompleteAction::add_object_oid_to_probable_dead_oid_list() {
   s3_log(S3_LOG_INFO, stripped_request_id, "%s Entry\n", __func__);
- 
+
+#if 0
   new_object_metadata = object_metadata_factory->create_object_metadata_obj(
 		       request, bucket_metadata->get_object_list_index_layout(),
 			   bucket_metadata->get_objects_version_list_index_layout());
@@ -596,7 +597,7 @@ void S3PostCompleteAction::add_object_oid_to_probable_dead_oid_list() {
   new_object_metadata->set_pvid(&new_pvid);
   // Generate version id for the new obj as it will become live to s3 clients.
   new_object_metadata->regenerate_version_id();
-
+#endif
   if (!motr_kv_writer) {
     motr_kv_writer =
         mote_kv_writer_factory->create_motr_kvs_writer(request, s3_motr_api);
